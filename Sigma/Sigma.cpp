@@ -1,38 +1,35 @@
 ﻿#include <iostream>
 #include <vector>
 using Field = std::vector<std::vector<char>>;
+const static uint8_t cols = 10, rows = 10;
 
-void print(char* str)
+void updateField(Field& field)
 {
-	std::cout << *str;
+	for (int i{ 0 }; i != cols; i++)
+	{
+		for (int j{ 0 }; j != rows; j++)
+		{
+			std::cout << field[i][j];
+		}
+		std::cout << "\n";
+	}
 }
 
-static void fieldMaker(Field& field, const uint8_t cols, const uint8_t rows)
+static void fieldMaker(Field& field)
 {
 	field.resize(rows, std::vector<char>(cols, '.'));
 	for (int i{ 0 }; i != rows; i++) {
-		field[i][0] = '#';
-		field[i][cols - 1] = '#';
-	} 
+		field[i][0] = '|';
+		field[i][cols - 1] = '|';
+		field[i][1] = '|';
+		field[i][cols - 2] = '|';
+	}
 }
 
 int main()
 {
-	const uint8_t cols = 10, rows = 10;
-	bool isGameRun = true;
 	Field field = {};
-	fieldMaker(field, cols, rows);
-	while (isGameRun)
-	{
-		for (int i{ 0 }; i != cols; i++)
-		{
-			for (int j{ 0 }; j != rows; j++)
-			{
-				print(&field[i][j]);
-			}
-			print(new char{'\n'});
-		}
-		isGameRun = false;
-	}
-	//system("cls");
+	fieldMaker(field);
+	updateField(field);
+	return 0;
 }
